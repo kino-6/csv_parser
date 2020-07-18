@@ -6,24 +6,25 @@
 #include <fstream>	// ifstream
 #include <sstream>	// istringstream
 #include <iostream>	// getline
+#include <locale>
 
 using namespace std;
 
 template <typename T>
 class CsvParser {
 public:
-	std::vector<std::vector<std::string>> Zvec_CsvData;
+	std::vector<std::vector<std::string>> g_data;
 
 public:
 	CsvParser(void){
-		Zvec_CsvData.clear();
+		g_data.clear();
 	}
 	CsvParser(std::string path, char delim, unsigned int start_row, unsigned int start_col, std::string comment) {
-		Zvec_CsvData.clear();
+		g_data.clear();
 		ReadCsv(path, delim, start_row, start_col, comment);
 	}
 	~CsvParser(void){
-		Zvec_CsvData.clear();
+		g_data.clear();
 	}
 
 	bool ReadCsv(std::string path, char delim, unsigned int start_row, unsigned int start_col, std::string comment) {
@@ -48,7 +49,7 @@ public:
 				col++;
 			}
 			if (elm_chk) {
-				Zvec_CsvData.push_back(line_vec);
+				g_data.push_back(line_vec);
 				line_vec.clear();
 			}
 			row++;
@@ -57,11 +58,23 @@ public:
 		return true;
 	}
 
+	size_t GetSize(unsigned int x){
+		return g_data.at(x).size();
+	}
+
+	size_t GetSize(unsigned int x, unsigned int y){
+		return g_data.at(x).at(y).size();
+	}
+
 	T GetData(unsigned int x, unsigned int y) {
 		T num;
 		std::stringstream ss;
-		ss << strtod(Zvec_CsvData.at(x).at(y).c_str(), NULL);
+		ss << _strtod_l(g_data.at(x).at(y).c_str(), NULL, _get_current_locale());
 		ss >> num;
 		return num;
+	}
+
+	std::string GetLabels(unsigned int x, unsigned int y) {
+		return g_data.at(x).at(y);
 	}
 };
