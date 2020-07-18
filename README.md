@@ -18,11 +18,11 @@ time, label1, label2, label3, lable4
 
 (1) csv_parser << test.csv
 ```cpp
-	// generate instance
-	CsvParser<long double> cp;
+// generate instance
+CsvParser<long double> cp;
 
-	// filepath , delimiter, start_row, start_col, comment
-	cp.ReadCsv("test.csv", ',', 0, 0, "#");
+// filepath , delimiter, start_row, start_col, comment
+cp.ReadCsv("test.csv", ',', 0, 0, "#");
 ```
 
 (2) call GetData(x, y)
