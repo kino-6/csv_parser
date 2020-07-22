@@ -28,8 +28,8 @@ cp.ReadCsv("test.csv", ',', 0, 0, "#");
 (2) call GetData(x, y)
 <pre>
 csv_parser.GetData(x,y) =
-	time      label1          label2          label3          lable4
-	0		1			2			3   		    1.31177e+18
-	1.1      	2       		4       		9   		    255
-	2.2      	3      		8       		27  		    16
+	time	label1	label2	label3	lable4
+	0	1	2	3	1.31177e+18
+	1.1     2	4	9	255
+	2.2     3	8	27	16
 <pre>
