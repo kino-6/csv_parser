@@ -58,6 +58,10 @@ public:
 		return true;
 	}
 
+	size_t GetSize(void) {
+		return g_data.size();
+	}
+
 	size_t GetSize(unsigned int x){
 		return g_data.at(x).size();
 	}
@@ -66,10 +70,21 @@ public:
 		return g_data.at(x).at(y).size();
 	}
 
-	T GetData(unsigned int x, unsigned int y) {
+	T GetData(unsigned int x, unsigned int y, T err_value = 0) {
 		T num;
 		std::stringstream ss;
-		ss << _strtod_l(g_data.at(x).at(y).c_str(), NULL, _get_current_locale());
+		try
+		{
+			ss << _strtoui64_l(g_data.at(x).at(y).c_str(), NULL, 16, _get_current_locale());
+		}
+		catch (std::out_of_range& )
+		{
+			ss << err_value;
+		}
+		catch (std::exception& e)
+		{
+			std::cout << std::endl << e.what() << std::endl;
+		}
 		ss >> num;
 		return num;
 	}
